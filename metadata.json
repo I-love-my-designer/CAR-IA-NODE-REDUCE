@@ -1,0 +1,10 @@
+{
+  "name": "NODE CAR IA reduce",
+  "description": "test",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "z7": [],
+  "Yp": []
+}

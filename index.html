@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NodeGen AI Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        margin: 0;
+        background-color: #0a0a0c;
+        color: white;
+        overflow: hidden;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+      #root { width: 100vw; height: 100vh; }
+      ::-webkit-scrollbar { width: 4px; height: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #444; }
+      .checkerboard {
+        background-color: #555555;
+        background-image: 
+          linear-gradient(45deg, #777777 25%, transparent 25%), 
+          linear-gradient(-45deg, #777777 25%, transparent 25%), 
+          linear-gradient(45deg, transparent 75%, #777777 75%), 
+          linear-gradient(-45deg, transparent 75%, #777777 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Débloque la liaison PWA <-> NodeGen
+    match /exports/{exportId} {
+      allow read, write: if true;
+    }
+    
+    match /compositing_jobs/{jobId} {
+      allow read, write: if true;
+    }
+    
+    match /_internal_system_/health_check {
+      allow read, write: if true;
+    }
+
+    // 2. Conserve vos règles d'origine sécurisées pour 'entries'
+    match /entries/{entryId} {
+      allow read: if true;
+      allow write: if request.auth != null 
+        && (request.resource == null || request.resource.data.userId == request.auth.uid)
+        && (resource == null || resource.data.userId == request.auth.uid);
+    }
+
+    // Par défaut, refuser tout le reste
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
