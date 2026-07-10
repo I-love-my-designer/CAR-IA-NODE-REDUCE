@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { 
-  collection, 
-  onSnapshot, 
-  query, 
-  doc, 
-  updateDoc, 
+  collection,
+  onSnapshot,
+  query,
+  doc,
+  updateDoc,
   serverTimestamp,
-  where
+  where,
+  limit
 } from 'firebase/firestore';
 import { db, resolveBackgroundUrl } from '../services/firebaseService';
 import { Sparkles, Loader2, CheckCircle2, AlertTriangle, Radio } from 'lucide-react';
@@ -88,7 +89,8 @@ export const FirestoreBackgroundEngine: React.FC = () => {
   useEffect(() => {
     const q = query(
       collection(db, 'exports'),
-      where('status', '==', 'pending')
+      where('status', '==', 'pending'),
+      limit(15)
     );
 
     console.log("Listening to 'exports' collection for pending sublimation requests...");

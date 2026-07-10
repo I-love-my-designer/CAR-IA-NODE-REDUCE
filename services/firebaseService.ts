@@ -2,11 +2,12 @@
 import { initializeApp } from 'firebase/app';
 import { 
   getFirestore, 
-  collection, 
-  onSnapshot, 
-  query, 
-  orderBy, 
-  doc, 
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+  doc,
   updateDoc, 
   serverTimestamp,
   addDoc,
@@ -386,7 +387,9 @@ export const resolveBackgroundUrlAsync = async (bgId: string): Promise<string> =
 
 export const subscribeToJobs = (callback: (jobs: CompositingJob[]) => void, onError?: (error: Error) => void) => {
   const path = 'exports';
-  const jobsQuery = query(collection(db, path), orderBy('createdAt', 'desc'));
+  // Bounded to the 20 most recent jobs. Without a limit this read the ENTIRE
+  // 'exports' collection on every load — a major source of Firestore read spikes.
+  const jobsQuery = query(collection(db, path), orderBy('createdAt', 'desc'), limit(20));
   
   return onSnapshot(jobsQuery, (snapshot) => {
     const jobs = snapshot.docs.map(doc => {
